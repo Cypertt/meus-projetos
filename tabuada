@@ -1,0 +1,5 @@
+while True:
+    numero = int(input('selecione o numero que deseja: '))
+
+    for n in range (1,11):
+        print(n * numero)

@@ -1,0 +1,55 @@
+CREATE TABLE hamburguers(
+	id SERIAL PRIMARY KEY,
+	nome VARCHAR(50),
+	obs TEXT
+	);
+
+INSERT INTO hamburguers(nome, obs)
+	VALUES ('Cheese burguer', 'Para está obra-prima, ultilizaremos um caseiro de longa fermentação, uma carne alta de 300 gramas, um queijo extremamente fresco diretamente da Itália e por ultimo mas não menos importante um molho caseiro da casa!');
+
+INSERT INTO hamburguers(nome, obs)
+	VALUES ('Minas Burguer','O sabor de Minas no pão! 2 carnes altas de 300g com queijo minas padrão, couve crispy, 5 ovos frito e fatias de bacon Gourmet. Tudo servido no nosso pão artesanal')
+
+SELECT
+	id,
+	nome AS Hamburguer,
+	obs AS Detalhes
+	FROM hamburguers;
+
+
+CREATE TABLE acompanhamentos(
+	id SERIAL PRIMARY KEY,
+	nome VARCHAR(50),
+	obs TEXT
+	);
+
+INSERT INTO acompanhamentos(nome, obs)
+	VALUES ('Batata Suprema', 'Batata carregada de cheddar e com uma qu!');
+
+INSERT INTO acompanhamentos(nome, obs)
+	VALUES ('Minas Burguer','O sabor de Minas no pão! 2 carnes altas de 300g com queijo minas padrão, couve crispy, 5 ovos frito e fatias de bacon Gourmet. Tudo servido no nosso pão artesanal')
+
+
+CREATE TABLE pedidos(
+	id SERIAL PRIMARY KEY,
+	nome VARCHAR(50),
+	valor NUMERIC(10,2),
+	hamb INT,
+	acomp INT,
+
+
+	FOREIGN KEY (hamb) REFERENCES hamburguers(id),
+	FOREIGN KEY (acomp) REFERENCES acompanhamentos(id)
+);
+
+INSERT INTO pedidos(nome, hamb, acomp, valor)
+	VALUES ('Alexandre', 1, 1, 30.00);
+
+
+SELECT
+	pedidos.nome AS cliente,
+	hamburguers.nome AS lanche,
+	acompanhamentos.nome AS acompanhamento
+	FROM pedidos
+	INNER JOIN hamburguers ON pedidos.hamb = hamburguers.id
+	INNER JOIN acompanhamentos ON pedidos.acomp = acompanhamentos.id;
